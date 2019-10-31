@@ -1,5 +1,8 @@
 #include "Arduino.h"
-//The setup function is called once at startup of the sketch
+#include <LocSpiff.h>
+
+
+
 void setup()
 {
 	Serial.begin(912600, SERIAL_8N1, 3, 1);
