@@ -42,14 +42,34 @@
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/variants/esp32</location>
 		</link>
 		<link>
+			<name>libraries/ESPmDNS</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/ESPmDNS</location>
+		</link>
+		<link>
 			<name>libraries/FS</name>
 			<type>2</type>
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/FS</location>
 		</link>
 		<link>
+			<name>libraries/PubSubClient</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/PubSubClient/2.7.0</locationURI>
+		</link>
+		<link>
 			<name>libraries/SPIFFS</name>
 			<type>2</type>
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/SPIFFS</location>
+		</link>
+		<link>
+			<name>libraries/Time</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/libraries/Time</location>
+		</link>
+		<link>
+			<name>libraries/WiFi</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/WiFi</location>
 		</link>
 	</linkedResources>
 </projectDescription>
