@@ -40,7 +40,8 @@ void setup()
 	gMAC = WiFi.macAddress();
 	log_i("------------------------------MAC = %s", gMAC.c_str());
 
-	locMqtt = new LocMQTT;
+//	gMAC = "Saya";
+	locMqtt = new LocMQTT(&gMAC);
 
 
 
@@ -52,7 +53,7 @@ void loop()
 {
 //Add your repeated code here
 
-	delay(1000);
+	delay(10000);
 
 	_tickNyamuk();
 }

@@ -15,11 +15,15 @@
 #include <WiFi.h>
 
 class LocMQTT {
+private:
+	String *_MAC;
 public:
-	LocMQTT();
+	LocMQTT(String *mac);
 	virtual ~LocMQTT();
 	void update();
 	void hantar(String t, String m);
+	static void callback(char* topic, byte* message, unsigned int length);
+	static void reconnect();
 };
 
 #endif /* OURS_LOCMQTT_H_ */

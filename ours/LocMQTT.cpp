@@ -20,25 +20,26 @@ char tempTopic[36];
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-void callback(char* topic, byte* message, unsigned int length);
-void reconnect();
+LocMQTT *iniMQTT;
 
-LocMQTT::LocMQTT() {
+
+//void reconnect();
+
+LocMQTT::LocMQTT(String *mac) {
 	log_i("================== LocMQTT::LocMQTT()=============");
+	iniMQTT = this;
 	client.setServer(mqtt_server, 1883);
-	client.setCallback(callback);
+	client.setCallback(iniMQTT->callback);
+
+	iniMQTT->_MAC = mac;
 }
 
-
 void LocMQTT::update() {
-//	log_i("????A");
 	if (!client.connected()) {
-//		log_i("????B");
 		delay(1000);
-		reconnect();
+		iniMQTT->reconnect();
 	}
 	else{
-//		log_i("????C");
 		client.loop();
 	}
 }
@@ -55,13 +56,14 @@ void LocMQTT::hantar(String t, String m) {
 	}
 }
 
-void callback(char* topic, byte* message, unsigned int length)
-{
+void LocMQTT::callback(char* topic, byte* message, unsigned int length) {
 	String messageTemp;
 
 	for (int i = 0; i < length; i++) {
 		messageTemp += (char)message[i];
 	}
+
+
 	if (String(topic) == "esp32/output") {
 		if(messageTemp == "on"){
 
@@ -71,17 +73,16 @@ void callback(char* topic, byte* message, unsigned int length)
 			log_i("+++++++++++++++++++++++++++++++OFF");
 		}
 		else{
+			// terima dalam bentuk JSON
 			log_i("%s",messageTemp.c_str());
 		}
 	}
 }
 
-void reconnect()
-{
+void LocMQTT::reconnect() {
 	while (!client.connected() && WiFi.isConnected()) {
 		yield();
 		delay(20);
-//		log_i("sini ke?");
 		if (client.connect("ESP8266Client")) {
 			client.subscribe("esp32/output");
 			break;
@@ -89,8 +90,8 @@ void reconnect()
 			delay(5000);
 		}
 	}
-//	log_i("done ke?");
 }
 
 LocMQTT::~LocMQTT() {
 }
+
