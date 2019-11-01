@@ -19,7 +19,7 @@ bool gtockBeat;
 bool gmqttEnabled=true;
 
 
-
+//=================================================================================================
 void setup()
 {
 	Serial.begin(912600, SERIAL_8N1, 3, 1);
@@ -40,25 +40,20 @@ void setup()
 	gMAC = WiFi.macAddress();
 	log_i("------------------------------MAC = %s", gMAC.c_str());
 
-//	gMAC = "Saya";
 	locMqtt = new LocMQTT(&gMAC);
-
-
-
-
 }
 
-// The loop function is called in an endless loop
+//=================================================================================================
 void loop()
 {
 //Add your repeated code here
 
-	delay(10000);
+	delay(500);
 
 	_tickNyamuk();
 }
 
-
+//=================================================================================================
 inline void _setupSPIFFiles(bool format) {
 	LocSpiff 	*locSpiff;
 	FileInfo_t	info;
@@ -93,13 +88,14 @@ inline void _setupSPIFFiles(bool format) {
 	}
 }
 
+//=================================================================================================
 inline void _tickNyamuk() {
 	locMqtt->update();
 	if((millis()-gtickNyamukTime) > 60000){
 		gtickNyamukTime = millis();
 		gtockBeat = !gtockBeat;
 		locMqtt->hantar(gMAC, gtockBeat?"1":"0");
-		log_i("---------------------------------> %s", gMAC.c_str());
+//		log_i("---------------------------------> %s", gMAC.c_str());
 
 	}
 }

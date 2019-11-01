@@ -19,7 +19,6 @@ private:
 	String *_MAC;
 public:
 	LocMQTT(String *mac);
-	virtual ~LocMQTT();
 	void update();
 	void hantar(String t, String m);
 	static void callback(char* topic, byte* message, unsigned int length);

@@ -23,8 +23,6 @@ PubSubClient client(espClient);
 LocMQTT *iniMQTT;
 
 
-//void reconnect();
-
 LocMQTT::LocMQTT(String *mac) {
 	log_i("================== LocMQTT::LocMQTT()=============");
 	iniMQTT = this;
@@ -63,7 +61,6 @@ void LocMQTT::callback(char* topic, byte* message, unsigned int length) {
 		messageTemp += (char)message[i];
 	}
 
-
 	if (String(topic) == "esp32/output") {
 		if(messageTemp == "on"){
 
@@ -92,6 +89,4 @@ void LocMQTT::reconnect() {
 	}
 }
 
-LocMQTT::~LocMQTT() {
-}
 
