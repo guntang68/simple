@@ -18,7 +18,6 @@ time_t gtickNyamukTime = 0;
 bool gtockBeat;
 bool gmqttEnabled=true;
 
-
 //=================================================================================================
 void setup()
 {
@@ -54,6 +53,17 @@ void loop()
 }
 
 //=================================================================================================
+inline void _tickNyamuk() {
+	locMqtt->update();
+	if((millis()-gtickNyamukTime) > 60000){
+		gtickNyamukTime = millis();
+		gtockBeat = !gtockBeat;
+		locMqtt->hantar(gMAC, gtockBeat?"1":"0");
+		log_i("beat ---------------------------------> %s", gMAC.c_str());
+
+	}
+}
+//=================================================================================================
 inline void _setupSPIFFiles(bool format) {
 	LocSpiff 	*locSpiff;
 	FileInfo_t	info;
@@ -88,14 +98,3 @@ inline void _setupSPIFFiles(bool format) {
 	}
 }
 
-//=================================================================================================
-inline void _tickNyamuk() {
-	locMqtt->update();
-	if((millis()-gtickNyamukTime) > 60000){
-		gtickNyamukTime = millis();
-		gtockBeat = !gtockBeat;
-		locMqtt->hantar(gMAC, gtockBeat?"1":"0");
-//		log_i("---------------------------------> %s", gMAC.c_str());
-
-	}
-}
