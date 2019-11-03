@@ -42,6 +42,11 @@
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/variants/esp32</location>
 		</link>
 		<link>
+			<name>libraries/ArduinoJson</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/ArduinoJson/6.9.1</locationURI>
+		</link>
+		<link>
 			<name>libraries/ESPmDNS</name>
 			<type>2</type>
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/ESPmDNS</location>
@@ -65,6 +70,16 @@
 			<name>libraries/Time</name>
 			<type>2</type>
 			<location>/home/annuar/Arduino/libraries/Time</location>
+		</link>
+		<link>
+			<name>libraries/Update</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/Update</location>
+		</link>
+		<link>
+			<name>libraries/WebServer</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/WebServer</location>
 		</link>
 		<link>
 			<name>libraries/WiFi</name>

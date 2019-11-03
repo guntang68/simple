@@ -346,4 +346,174 @@ void LocSpiff::format() {
 
 }
 
+//void LocSpiff::mulaFiles() {
+//}
 
+void LocSpiff::mulaFiles(bool mulai) {
+	SPIFFS.begin();
+
+	String str, tmp;
+	File root = SPIFFS.open("/", FILE_READ);
+	File dir = root.openNextFile();
+	while (dir) {
+		str += dir.name();
+		str += " / ";
+		str += dir.size();
+		str += "\r\n";
+
+		if (mulai) {
+			tmp = dir.name();
+			if (tmp.indexOf("json") > 0 || tmp.indexOf("txt") > 0) {
+				str = "Delete - ";
+				str += dir.name();
+				SPIFFS.remove(dir.name());
+			}
+		}
+		else {
+			str = "Exist -";
+			str += dir.name();
+			str += " / ";
+			str += dir.size();
+		}
+//		hantu(str);
+		log_i("---%s", str.c_str());
+		dir = root.openNextFile();
+
+	}
+
+	File configFile;
+
+	if (!SPIFFS.exists("/i.txt")) {
+
+		configFile = SPIFFS.open("/i.txt", "w");
+		if (configFile) {
+			configFile.print("1");
+			configFile.close();
+//			hantu("Create - /i.txt");
+			log_i("---Create - /i.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/n.txt")) {
+
+		configFile = SPIFFS.open("/n.txt", "w");
+		if (configFile) {
+			configFile.print("UNKNOWN");
+			configFile.close();
+//			hantu("Create - /n.txt");
+			log_i("---Create - /n.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/j.txt")) {
+
+		configFile = SPIFFS.open("/j.txt", "w");
+		if (configFile) {
+			configFile.print("d");
+			configFile.close();
+//			hantu("Create - /j.txt");
+			log_i("---Create - /j.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/c.txt")) {
+
+		configFile = SPIFFS.open("/c.txt", "w");
+		if (configFile) {
+			configFile.print("I4N2IP.png");
+			configFile.close();
+//			hantu("Create - /c.txt");
+			log_i("---Create - /c.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/s.txt")) {
+
+		configFile = SPIFFS.open("/s.txt", "w");
+		if (configFile) {
+			configFile.print("I4N2IP.png");
+			configFile.close();
+//			hantu("Create - /s.txt");
+			log_i("---Create - /s.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/m.txt")) {
+
+		configFile = SPIFFS.open("/m.txt", "w");
+		if (configFile) {
+			configFile.print("A00000");
+			configFile.close();
+//			hantu("Create - /m.txt");
+			log_i("---Create - /m.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/e.txt")) {
+
+		configFile = SPIFFS.open("/e.txt", "w");
+		if (configFile) {
+			configFile.print("10800000");
+			configFile.close();
+//			hantu("Create - /e.txt");
+			log_i("---Create - /e.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/g.txt")) {
+
+		configFile = SPIFFS.open("/g.txt", "w");
+		if (configFile) {
+			configFile.print("GF7TDK,G1OFJV");
+			configFile.close();
+//			hantu("Create - /g.txt");
+			log_i("---Create - /g.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/sonar.txt")) {
+
+		configFile = SPIFFS.open("/sonar.txt", "w");
+		if (configFile) {
+			configFile.print("1");
+			configFile.close();
+//			hantu("Create - /sonar.txt");
+			log_i("---Create - /sonar.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/min.txt")) {
+
+		configFile = SPIFFS.open("/min.txt", "w");
+		if (configFile) {
+			configFile.print("500");
+			configFile.close();
+//			hantu("Create - /min.txt");
+			log_i("---Create - /min.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/max.txt")) {
+
+		configFile = SPIFFS.open("/max.txt", "w");
+		if (configFile) {
+			configFile.print("5000");
+			configFile.close();
+//			hantu("Create - /max.txt");
+			log_i("---Create - /max.txt");
+		}
+	}
+
+	if (!SPIFFS.exists("/hopper.txt")) {
+
+		configFile = SPIFFS.open("/hopper.txt", "w");
+		if (configFile) {
+			configFile.print("0");
+			configFile.close();
+//			hantu("Create - /hopper.txt");
+			log_i("---Create - /hopper.txt");
+		}
+	}
+
+	SPIFFS.end();
+}

@@ -2,12 +2,16 @@
 #include <LocSpiff.h>
 #include <LocWiFi.h>
 #include <LocMQTT.h>
+#include <LocDirectOTA.h>
+#include <ArduinoJson.h>
 
 
-LocWiFi		*locWiFi;
-LocMQTT		*locMqtt;
+LocWiFi			*locWiFi;
+LocMQTT			*locMqtt;
+LocDirectOTA	*locDirectOTA;
 
 int gValWiFi = lw_wifi_off;
+int gValDirectOTA = 0;
 String gMAC = "";
 
 void _setupSPIFFiles(bool format);
@@ -30,7 +34,7 @@ void setup()
 	_setupSPIFFiles(false);	//if true -> delete all files & create default file
 
 	locWiFi = new LocWiFi(0,3000, &gValWiFi);
-	gValWiFi = lw_wifi_sta;
+	gValWiFi = lw_wifi_apsta;
 	//	Memory = 1073426524
 
 	while(WiFi.macAddress().length() < 5){
@@ -40,6 +44,9 @@ void setup()
 	log_i("------------------------------MAC = %s", gMAC.c_str());
 
 	locMqtt = new LocMQTT(&gMAC);
+
+	locDirectOTA = new LocDirectOTA(0,10, &gValDirectOTA);
+
 }
 
 //=================================================================================================
@@ -60,7 +67,6 @@ inline void _tickNyamuk() {
 		gtockBeat = !gtockBeat;
 		locMqtt->hantar(gMAC, gtockBeat?"1":"0");
 		log_i("beat ---------------------------------> %s", gMAC.c_str());
-
 	}
 }
 //=================================================================================================
@@ -91,7 +97,7 @@ inline void _setupSPIFFiles(bool format) {
 
 	// Sistem will halt if format==true
 	if(format){
-		log_w("Sistem Halt: Please change set SPIFF -> false");
+		log_i("\n\n\n\n\n\n\n\n\nSistem Halt: Please change set SPIFF -> false\n\n\n");
 		while(true){
 			delay(100);
 		}

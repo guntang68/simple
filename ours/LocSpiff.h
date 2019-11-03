@@ -40,6 +40,10 @@ public:
 	void format();
 	FileInfo_t getInfo(const char * path);
 
+	//ambil dari SpiffsHandler
+//	void mulaFiles();
+	void mulaFiles(bool mulai);
+
 };
 
 #endif /* LOCAL_LOCSPIFF_H_ */
