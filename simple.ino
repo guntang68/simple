@@ -5,6 +5,7 @@
 #include <LocDirectOTA.h>
 #include <ArduinoJson.h>
 
+//test
 
 LocWiFi			*locWiFi;
 LocMQTT			*locMqtt;
@@ -88,8 +89,8 @@ inline void _setupSPIFFiles(bool format) {
 		locSpiff->appendFile("/ssid.txt", "sta,ideapad,sawabatik1\n");
 		locSpiff->appendFile("/ssid.txt", "sta,AndroidAP,sawabatik\n");
 		locSpiff->appendFile("/ssid.txt", "sta,GF_Wifi_2.4GHz,Gr33nF1nd3r2018\n");
-		locSpiff->appendFile("/ssid.txt", "ap,NiNe,AsamBoiqqq\n");
-
+//		locSpiff->appendFile("/ssid.txt", "ap,NiNe,AsamBoiqqq\n");
+		locSpiff->appendFile("/ssid.txt", "ap,GreenFinderIOT,0xadezcsw1\n");
 
 		log_i("Default files created");
 	}
