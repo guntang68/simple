@@ -5,7 +5,7 @@
 #include <LocDirectOTA.h>
 #include <ArduinoJson.h>
 
-//test
+//TODO	need to detect WiFi lost connection
 
 LocWiFi			*locWiFi;
 LocMQTT			*locMqtt;
@@ -31,6 +31,15 @@ void setup()
 	log_i("\n\n\n\nSalam Dunia dari %s\n\n\n\n", __FILE__);
 	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
 	//	Memory = 1073447996
+
+	pinMode(2, OUTPUT);
+
+	for(int w=0; w<5;w++){
+		digitalWrite(2, HIGH);
+		delay(100);
+		digitalWrite(2, LOW);
+		delay(100);
+	}
 
 	_setupSPIFFiles(false);	//if true -> delete all files & create default file
 

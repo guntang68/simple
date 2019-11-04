@@ -11,7 +11,12 @@
 #include <TimeLib.h>
 #include <WiFi.h>
 
-const char* mqtt_server = "103.75.190.251";
+//const char* mqtt_server = "103.75.190.251";
+const char* mqtt_server = "192.168.43.114";
+//const char* mqtt_server =   "127.0.0.1";
+//ANNUAR 02:56:00 ~: $ sudo ufw allow 1883
+
+
 String message="";
 String topic="";
 char tempString[120];
@@ -84,7 +89,10 @@ void LocMQTT::reconnect() {
 			client.subscribe("esp32/output");
 			break;
 		} else {
+			log_w("reconnect failed");
 			delay(5000);
+			log_w("retry");
+
 		}
 	}
 }

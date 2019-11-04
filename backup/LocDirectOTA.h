@@ -21,7 +21,7 @@ class LocDirectOTA {
 private:
 	int 	_loopDelay;
 	int * 	_lookVal;
-//	static bool	_nine();
+	static bool	_nine();
 	static void _handleConfDDMS();
 	static void _StatusViaWiFi(void);
 	static bool _adTech();

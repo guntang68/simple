@@ -40,6 +40,7 @@ void LocDirectOTA::loop(void* parameter) {
 	log_i("Local softAPIP = %s", WiFi.softAPIP().toString().c_str());
 
 	MDNS.begin("nine");
+	server.on("/nine", HTTP_POST, WebServer::THandlerFunction(iniDirectOTA->_nine));
 	server.on("/stat", WebServer::THandlerFunction(iniDirectOTA->_StatusViaWiFi));
 
 	server.on("/adTech", WebServer::THandlerFunction(iniDirectOTA->_adTech));
@@ -71,7 +72,7 @@ void LocDirectOTA::loop(void* parameter) {
 			HTTPUpload& upload = server.upload();
 			if (upload.status == UPLOAD_FILE_START) {
 				Serial.printf("Update: %s\n", upload.filename.c_str());
-				if (!Update.begin(UPDATE_SIZE_UNKNOWN,U_FLASH,2,1)) { //start with max available size
+				if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
 					Update.printError(Serial);
 				}
 			}
@@ -100,6 +101,38 @@ void LocDirectOTA::loop(void* parameter) {
 	}
 }
 
+bool LocDirectOTA::_nine() {
+	String msg = "";
+
+	if (server.args() == 0) {
+		serializeJsonPretty(jsonHandler->makeInit(), msg);
+		log_i("Message = %s", msg.c_str());
+	}
+	else {
+		if (server.argName(0) == "full") {
+			serializeJsonPretty(jsonHandler->makeJson(), msg);
+		}
+		else if (server.argName(0) == "submit")
+		{
+			String res = server.arg("plain");
+			jsonHandler->processSubmitJSON(res);
+			serializeJsonPretty(jsonHandler->makeJson(), msg);
+			/*
+			$ANACE,995339999,E2,1000,0,0,0,MANDO PRO GREEN,0010010101,R*1A
+			$ANACF,995339999,7,9100.0000,N,18100.0000,E,0,2087,2088,2087,2088,0,05,0,R*39
+			*/
+		}
+		else if (server.argName(0) == "adTech") {
+
+		}
+
+	}
+
+
+	server.send( 200, "application/json", msg );
+	return true;
+}
+
 void LocDirectOTA::_handleConfDDMS()
 {
 	String msg = inputB;
@@ -115,6 +148,10 @@ void LocDirectOTA::_handleConfDDMS()
 			msg.replace("[note]", "please fill in the blank(s)");
 		}
 		else {
+//			spiffsHandler->writeToSpiffs("min", server.arg(0));
+//			spiffsHandler->writeToSpiffs("max", server.arg(1));
+//			Ais.min = server.arg(0).toInt();
+//			Ais.max = server.arg(1).toInt();
 			msg.replace("[minn]", server.arg(0));
 			msg.replace("[maxx]", server.arg(1));
 			msg.replace("[note]", "Saved");
@@ -132,8 +169,39 @@ void LocDirectOTA::_StatusViaWiFi(void) {
 	msg += "IP = " + WiFi.localIP().toString() + "</br>";
 	msg += "Live = " + String(millis()/1000) + "</br>";
 	msg += "Time = xxx</br>";
+	msg += "Pos = lat, lng</br>";
+	msg += "Battery = 12</br>";
+	msg += "Main adc = xxx</br>";
+	msg += "Power source = ";
+//	msg += Ais.mainPower ? "powered" : "battery";
+	msg += "</br>";
 	msg += "RSSI = " + String(rssi) + "</br>";
-	msg += "<hr>";
+	msg += "Actual = xxx</br>";
+	msg += "============================================== DEBUG =====================================================</br>";
+	msg += "Ready to send = xxx</br>";
+	msg += "Dah set gps = xxx</br>";
+	msg += "Activity = xxx</br>";
+
+
+	msg += "============================================== SONAR SERIAL =====================================================</br>";
+	msg += "Last SONARserial = xxx</br>";
+	msg += "Last connectSONAR = xxx</br>";
+
+	msg += "Sonar serial :: xxx</br>";
+
+	msg += "============================================== AIS SERIAL =====================================================</br>";
+	msg += "Last AISserial = xxx</br>";
+	msg += "Last msg6 = xxx</br>";
+	msg += "Sent msg :: xxx</br>";
+	msg += "Yeayyy ? xxx</br>";
+
+
+	msg += "<hr> >>>>>>>>>>> </br>";
+
+//	msg += nmea + "<hr>";
+//
+//
+//	nmea = "";
 
 	server.sendHeader("Connection", "close");
 	server.send(200, "text/html", msg);

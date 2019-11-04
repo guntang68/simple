@@ -77,8 +77,19 @@
 							<tool id="io.sloeber.tool.size.303038547" name="Arduino tool Print Size" superClass="io.sloeber.tool.size"/>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="io.sloeber.core.toolChain.release.1445117896.1460294605" name="/" resourcePath="backup">
+						<toolChain id="io.sloeber.core.toolChain.release.441597915" name="Arduino Toolchain (Sloeber edition)" superClass="io.sloeber.core.toolChain.release" unusedChildren="">
+							<tool id="io.sloeber.tool.sketch.compiler.cpp.1534653576" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp.1667818482"/>
+							<tool id="io.sloeber.tool.compiler.c.2039610586" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c.521447618"/>
+							<tool id="io.sloeber.tool.sketch.compiler.s.1812694132" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s.1710864884"/>
+							<tool id="io.sloeber.tool.ar.1336630744" name="Arduino archiver" superClass="io.sloeber.tool.ar.414643331"/>
+							<tool id="io.sloeber.tool.combine.1045503159" name="Arduino combiner" superClass="io.sloeber.tool.combine.977084890"/>
+							<tool id="io.sloeber.tool.objcopy.eep.1916161606" name="Arduino tool objcopy command" superClass="io.sloeber.tool.objcopy.eep.38341142"/>
+							<tool id="io.sloeber.tool.size.810503980" name="Arduino tool Print Size" superClass="io.sloeber.tool.size.303038547"/>
+						</toolChain>
+					</folderInfo>
 					<sourceEntries>
-						<entry excluding="libraries/ArduinoJson/fuzzing|libraries/ArduinoJson/scripts|libraries/Time/docs|libraries/Time/.git|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries/**/._*|libraries/?*/utility/*/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+						<entry excluding="backup|libraries/ArduinoJson/fuzzing|libraries/ArduinoJson/scripts|libraries/Time/docs|libraries/Time/.git|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries/**/._*|libraries/?*/utility/*/*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
